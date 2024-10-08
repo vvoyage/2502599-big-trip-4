@@ -2,7 +2,7 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin'); 
 module.exports = {
- entry: './main.js', // Точка входа - main.js
+ entry: './src/main.js', // Точка входа - main.js
  output: {
   filename: 'bundle.js', // Имя файла сборки - bundle.js
   path: path.resolve(__dirname, 'build'), // Абсолютный путь к директории сборки
