@@ -1,7 +1,4 @@
-import {
-  render,
-  replace
-} from '../framework/render.js';
+import { remove, render, replace } from '../framework/render.js';
 import EventsListView from '../view/events-list-view.js';
 import EventsListEmptyView from '../view/events-list-empty-view.js';
 import PointView from '../view/point-view.js';
