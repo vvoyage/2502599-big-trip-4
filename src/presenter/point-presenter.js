@@ -19,6 +19,7 @@ export default class PointPresenter {
     this.#offersModel = offersModel;
     this.#onPointChange = onPointChange;
   }
+  
   init(point) {
     this.#point = point;
 
