@@ -1,4 +1,8 @@
-import { remove, render, replace } from '../framework/render.js';
+import {
+  remove,
+  render,
+  replace
+} from '../framework/render.js';
 import PointView from '../view/point-view.js';
 import PointEditorView from '../view/point-editor-view.js';
 import { PointMode } from '../const.js';
@@ -14,14 +18,20 @@ export default class PointPresenter {
   #offersModel = null;
   #mode = PointMode.IDLE;
 
-  constructor({ container, destinationsModel, offersModel, onPointChange }) {
+  constructor({
+    container,
+    destinationsModel,
+    offersModel,
+    onPointChange,
+    onEditorOpen,
+  }) {
     this.#container = container;
     this.#destinationsModel = destinationsModel;
     this.#offersModel = offersModel;
     this.#onPointChange = onPointChange;
-
+    this.#onEditorOpen = onEditorOpen;
   }
-  
+
   init(point) {
     this.#point = point;
 
