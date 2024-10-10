@@ -1,10 +1,14 @@
-const POINTS_COUNT = 5;
 const MSEC_IN_SEC = 1000;
 const SEC_IN_MIN = 60;
 const MIN_IN_HOUR = 60;
 const HOUR_IN_DAY = 24;
+const MSEC_IN_HOUR = MSEC_IN_SEC * SEC_IN_MIN * MIN_IN_HOUR;
+const MSEC_IN_DAY = MSEC_IN_HOUR * HOUR_IN_DAY;
+
+const POINTS_COUNT = 5;
 const MAX_PRICE_VALUE = 200;
 const MAX_IMAGES_COUNT = 5;
+
 const EVENT_TYPES = [
   'taxi',
   'bus',
@@ -32,6 +36,66 @@ const DESCRIPTIONS = [
   'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius, dolorem.',
   'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit ad eaque cupiditate praesentium maxime.',
 ];
+
+const PointMode = {
+  IDLE: 'IDLE',
+  EDITABLE: 'EDITABLE',
+};
+
+const FilterType = {
+  ANY: 'any',
+  FUTURE: 'future',
+  PRESENT: 'present',
+  PAST: 'past'
+};
+
+const SortType = {
+  DAY: 'day',
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+  OFFER: 'offer',
+};
+
+const FilterSettings = {
+  [FilterType.ANY]: {
+    label: 'Everything',
+    defaultSelected: true,
+  },
+  [FilterType.FUTURE]: { label: 'Future' },
+  [FilterType.PRESENT]: { label: 'Present' },
+  [FilterType.PAST]: { label: 'Past' },
+};
+
+const SORTING_COLUMNS = [
+  {
+    type: SortType.DAY,
+    label: 'Day',
+    active: true,
+    defaultSelected: true,
+  },
+  {
+    type: SortType.EVENT,
+    label: 'Event',
+    active: false,
+  },
+  {
+    type: SortType.TIME,
+    label: 'Time',
+    active: true,
+  },
+  {
+    type: SortType.PRICE,
+    label: 'Price',
+    active: true,
+  },
+  {
+    type: SortType.OFFER,
+    label: 'Offer',
+    active: false,
+  },
+];
+
 const DateFormat = {
   TIME: 'HH:mm',
   SHORT: 'MMM DD',
@@ -55,9 +119,6 @@ const MocksMaxCount = {
   POINTS: 5,
 };
 
-const MSEC_IN_HOUR = MSEC_IN_SEC * SEC_IN_MIN * MIN_IN_HOUR;
-const MSEC_IN_DAY = MSEC_IN_HOUR * HOUR_IN_DAY;
-
 export {
   POINTS_COUNT,
   EVENT_TYPES,
@@ -65,6 +126,11 @@ export {
   MAX_IMAGES_COUNT,
   CITIES,
   DESCRIPTIONS,
+  SORTING_COLUMNS,
+  PointMode,
+  FilterType,
+  FilterSettings,
+  SortType,
   DateFormat,
   DurationFormat,
   Price,

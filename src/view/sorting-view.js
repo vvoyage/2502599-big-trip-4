@@ -1,38 +1,41 @@
 import AbstractView from '../framework/view/abstract-view.js';
 
-function createSortingTemplate() {
-  return (
-    `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
-      <div class="trip-sort__item  trip-sort__item--day">
-        <input id="sort-day" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-day" checked>
-        <label class="trip-sort__btn" for="sort-day">Day</label>
-      </div>
+function createSortingItemTemplate(column) {
+  const { type, label, active, defaultSelected } = column;
+  return `
+    <div class="trip-sort__item  trip-sort__item--${type}">
+      <input id="sort-${type}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${type}" ${!active ? 'disabled' : ''} ${defaultSelected ? 'checked' : ''}>
+      <label class="trip-sort__btn" for="sort-${type}">${label}</label>
+    </div>`;
+}
 
-      <div class="trip-sort__item  trip-sort__item--event">
-        <input id="sort-event" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-event" disabled>
-        <label class="trip-sort__btn" for="sort-event">Event</label>
-      </div>
-
-      <div class="trip-sort__item  trip-sort__item--time">
-        <input id="sort-time" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-time">
-        <label class="trip-sort__btn" for="sort-time">Time</label>
-      </div>
-
-      <div class="trip-sort__item  trip-sort__item--price">
-        <input id="sort-price" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-price">
-        <label class="trip-sort__btn" for="sort-price">Price</label>
-      </div>
-
-      <div class="trip-sort__item  trip-sort__item--offer">
-        <input id="sort-offer" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-offer" disabled>
-        <label class="trip-sort__btn" for="sort-offer">Offers</label>
-      </div>
-    </form>`
-  );
+function createSortingTemplate(items) {
+  return `<form class="trip-events__trip-sort trip-sort" action="#" method="get">
+    ${items.map(createSortingItemTemplate).join('')}
+  </form>`;
 }
 
 export default class SortingView extends AbstractView {
-  get template() {
-    return createSortingTemplate();
+  #items = [];
+  #onSortChange = null;
+
+  constructor({
+    items,
+    onSortChange
+  }) {
+    super();
+
+    this.#items = items;
+    this.#onSortChange = onSortChange;
+    this.element.addEventListener('change', this.#sortingChangeHandler);
   }
+
+  get template() {
+    return createSortingTemplate(this.#items);
+  }
+
+  #sortingChangeHandler = (evt) => {
+    evt.preventDefault();
+    this.#onSortChange(evt.target.value);
+  };
 }
