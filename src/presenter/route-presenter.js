@@ -6,7 +6,7 @@ import EventsListView from '../view/events-list-view.js';
 import EventsListEmptyView from '../view/events-list-empty-view.js';
 import { SORTING_COLUMNS, SortType, UpdateType } from '../const.js';
 import PointPresenter from './point-presenter.js';
-import { deleteItem, sortByType, updateItem } from '../utils.js';
+import { sortByType } from '../utils.js';
 import SortingView from '../view/sorting-view.js';
 
 export default class RoutePresenter {
@@ -29,8 +29,7 @@ export default class RoutePresenter {
     this.#pointsModel = pointsModel;
     this.#offersModel = offersModel;
     this.#destinationsModel = destinationsModel;
-    this.points = sortByType[this.#currentSortType]([...this.#pointsModel.get()]);
-    
+
     this.#pointsModel.addObserver(this.#modelEventHandler);
   }
 
@@ -119,8 +118,18 @@ export default class RoutePresenter {
     this.#renderRoute();
   };
 
-  #modelEventHandler = () => {
-    this.#clearRoute();
-    this.#renderRoute();
+  #modelEventHandler = (type, data) => {
+    switch (type) {
+      case UpdateType.PATCH:
+        this.#pointsPresenters.get(data.id)?.init(data);
+        break;
+
+      case UpdateType.MINOR:
+      case UpdateType.MAJOR:
+      default:
+        this.#clearRoute();
+        this.#renderRoute();
+        break;
+    }
   };
 }
