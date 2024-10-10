@@ -30,9 +30,7 @@ export default class RoutePresenter {
     this.#pointsModel = pointsModel;
     this.#offersModel = offersModel;
     this.#destinationsModel = destinationsModel;
-    this.#points = sortByType[this.#currentSortType]([
-      ...this.#pointsModel.get(),
-    ]);
+    this.#points = sortByType[this.#currentSortType]([...this.#pointsModel.get()]);
   }
 
   init() {
