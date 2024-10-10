@@ -260,7 +260,7 @@ export default class PointEditorView extends AbstractStatefulView {
       ? currentDestination.id
       : this._state.destination;
 
-      this.#updatePoint('destination', currentDestinationId);
+    this.#updatePoint('destination', currentDestinationId);
   };
 
   #offersChangeHandler = () => {
