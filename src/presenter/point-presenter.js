@@ -18,7 +18,6 @@ export default class PointPresenter {
     this.#destinationsModel = destinationsModel;
     this.#offersModel = offersModel;
     this.#onPointChange = onPointChange;
-
   }
   
   init(point) {
@@ -69,7 +68,6 @@ export default class PointPresenter {
       replace(updatedEditorComponent, this.#pointEditorComponent);
     } else {
       replace(updatedPointComponent, this.#pointComponent);
-
     }
 
     this.#pointComponent = updatedPointComponent;
@@ -80,7 +78,6 @@ export default class PointPresenter {
     remove(this.#pointComponent);
     remove(this.#pointEditorComponent);
   }
-
 
   #replacePointByEditor() {
     replace(this.#pointEditorComponent, this.#pointComponent);
